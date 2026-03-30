@@ -25,6 +25,7 @@
 /zlib.pc
 /configure.log
 /build
+/cmake-build-*/
 
 .DS_Store
 .vs
@@ -32,7 +33,9 @@
 *.nupkg
 /cmake-build/
 /contrib/vstudio/vc/zlib.vcxproj
+/contrib/vstudio/vc/
 /contrib/vstudio/vc/x64/
+/contrib/vstudio/vc/ARM64/
 contrib/vstudio/vc143/x86
 contrib/vstudio/vc143/x64
 contrib/vstudio/vc143/arm
