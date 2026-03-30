@@ -32,8 +32,7 @@
 *.user
 *.nupkg
 /cmake-build/
-/contrib/vstudio/vc/zlib.vcxproj
-/contrib/vstudio/vc/
+/contrib/vstudio/vc/zlib/
 /contrib/vstudio/vc/x64/
 /contrib/vstudio/vc/ARM64/
 contrib/vstudio/vc143/x86
