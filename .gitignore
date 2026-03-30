@@ -30,6 +30,11 @@
 .vs
 *.user
 *.nupkg
+/cmake-build-*/
+/cmake-build/
+/contrib/vstudio/vc/zlib/
+/contrib/vstudio/vc/x64/
+/contrib/vstudio/vc/ARM64/
 contrib/vstudio/vc143/x86
 contrib/vstudio/vc143/x64
 contrib/vstudio/vc143/arm
