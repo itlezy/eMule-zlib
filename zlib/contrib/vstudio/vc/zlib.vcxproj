@@ -52,14 +52,18 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings" />
   <ImportGroup Label="PropertySheets" />
+  <PropertyGroup>
+    <WorkspaceCMakeExe Condition="'$(WorkspaceCMakeExe)'=='' and Exists('$(VSInstallDir)Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe')">$(VSInstallDir)Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin\cmake.exe</WorkspaceCMakeExe>
+    <WorkspaceCMakeExe Condition="'$(WorkspaceCMakeExe)'==''">cmake</WorkspaceCMakeExe>
+  </PropertyGroup>
 
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Release'">
     <PreBuildEvent>
-      <Command>IF NOT EXIST "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\CMakeCache.txt" cmake -S "$(MSBuildProjectDirectory)\..\..\..\" -B "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" -G "Visual Studio 17 2022" -A $(Platform) -DZLIB_BUILD_SHARED=OFF -DZLIB_BUILD_TESTING=OFF "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$&lt;$&lt;CONFIG:Debug&gt;:Debug&gt;"</Command>
+      <Command>IF NOT EXIST "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\CMakeCache.txt" "$(WorkspaceCMakeExe)" -S "$(MSBuildProjectDirectory)\..\..\..\" -B "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" -G "Visual Studio 17 2022" -A $(Platform) -DZLIB_BUILD_SHARED=OFF -DZLIB_BUILD_TESTING=OFF "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$&lt;$&lt;CONFIG:Debug&gt;:Debug&gt;"</Command>
       <Message>Configuring zlib 1.3.2 with cmake (if not already configured)</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>cmake --build "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" --config Release --target zlibstatic
+      <Command>"$(WorkspaceCMakeExe)" --build "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" --config Release --target zlibstatic
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
 IF NOT EXIST "$(MSBuildProjectDirectory)\$(Platform)\Release" MD "$(MSBuildProjectDirectory)\$(Platform)\Release"
 COPY /Y "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\Release\zs.lib" "$(MSBuildProjectDirectory)\$(Platform)\Release\zlib.lib"</Command>
@@ -69,11 +73,11 @@ COPY /Y "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\Release\
 
   <ItemDefinitionGroup Condition="'$(Configuration)'=='Debug'">
     <PreBuildEvent>
-      <Command>IF NOT EXIST "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\CMakeCache.txt" cmake -S "$(MSBuildProjectDirectory)\..\..\..\" -B "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" -G "Visual Studio 17 2022" -A $(Platform) -DZLIB_BUILD_SHARED=OFF -DZLIB_BUILD_TESTING=OFF "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$&lt;$&lt;CONFIG:Debug&gt;:Debug&gt;"</Command>
+      <Command>IF NOT EXIST "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\CMakeCache.txt" "$(WorkspaceCMakeExe)" -S "$(MSBuildProjectDirectory)\..\..\..\" -B "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" -G "Visual Studio 17 2022" -A $(Platform) -DZLIB_BUILD_SHARED=OFF -DZLIB_BUILD_TESTING=OFF "-DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded$&lt;$&lt;CONFIG:Debug&gt;:Debug&gt;"</Command>
       <Message>Configuring zlib 1.3.2 with cmake (if not already configured)</Message>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>cmake --build "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" --config Debug --target zlibstatic
+      <Command>"$(WorkspaceCMakeExe)" --build "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)" --config Debug --target zlibstatic
 IF %ERRORLEVEL% NEQ 0 EXIT /B %ERRORLEVEL%
 IF NOT EXIST "$(MSBuildProjectDirectory)\$(Platform)\Debug" MD "$(MSBuildProjectDirectory)\$(Platform)\Debug"
 COPY /Y "$(MSBuildProjectDirectory)\..\..\..\..\cmake-build-$(Platform)\Debug\zsd.lib" "$(MSBuildProjectDirectory)\$(Platform)\Debug\zlib.lib"</Command>
